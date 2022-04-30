@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 ;
 
-import com.anchorfree.partner.api.data.Country;
 import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.activity.MainActivity;
 import com.github.goldfish07.hydra.vpn.adapter.FreeServerListAdapter;
 
 import java.util.List;
+
+import unified.vpn.sdk.Country;
 
 public class FreeServersFragment extends Fragment  {
 

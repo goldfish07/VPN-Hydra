@@ -18,29 +18,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.anchorfree.partner.api.auth.AuthMethod;
-import com.anchorfree.partner.api.data.Country;
-import com.anchorfree.partner.api.response.AvailableCountries;
-import com.anchorfree.partner.api.response.User;
-import com.anchorfree.reporting.TrackingConstants;
-import com.anchorfree.sdk.SessionConfig;
-import com.anchorfree.sdk.SessionInfo;
-import com.anchorfree.sdk.UnifiedSDK;
-import com.anchorfree.sdk.exceptions.PartnerApiException;
-import com.anchorfree.sdk.fireshield.FireshieldCategory;
-import com.anchorfree.sdk.fireshield.FireshieldConfig;
-import com.anchorfree.vpnsdk.callbacks.Callback;
-import com.anchorfree.vpnsdk.callbacks.CompletableCallback;
-import com.anchorfree.vpnsdk.callbacks.TrafficListener;
-import com.anchorfree.vpnsdk.callbacks.VpnStateListener;
-import com.anchorfree.vpnsdk.compat.CredentialsCompat;
-import com.anchorfree.vpnsdk.exceptions.NetworkRelatedException;
-import com.anchorfree.vpnsdk.exceptions.VpnException;
-import com.anchorfree.vpnsdk.exceptions.VpnPermissionDeniedException;
-import com.anchorfree.vpnsdk.exceptions.VpnPermissionRevokedException;
-import com.anchorfree.vpnsdk.transporthydra.HydraTransport;
-import com.anchorfree.vpnsdk.transporthydra.HydraVpnTransportException;
-import com.anchorfree.vpnsdk.vpnservice.VPNState;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.github.goldfish07.hydra.vpn.BuildConfig;
@@ -49,7 +26,6 @@ import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.fragment.FreeServersFragment;
 import com.github.goldfish07.hydra.vpn.fragment.PaidServerFragment;
 import com.github.goldfish07.hydra.vpn.util.CountriesNames;
-import com.northghost.caketube.CaketubeTransport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +35,29 @@ import java.util.Map;
 
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import unified.vpn.sdk.AuthMethod;
+import unified.vpn.sdk.AvailableCountries;
+import unified.vpn.sdk.Callback;
+import unified.vpn.sdk.CompletableCallback;
+import unified.vpn.sdk.Country;
+import unified.vpn.sdk.FireshieldCategory;
+import unified.vpn.sdk.FireshieldConfig;
+import unified.vpn.sdk.HydraTransport;
+import unified.vpn.sdk.HydraVpnTransportException;
+import unified.vpn.sdk.NetworkRelatedException;
+import unified.vpn.sdk.OpenVpnTransport;
+import unified.vpn.sdk.PartnerApiException;
+import unified.vpn.sdk.SessionConfig;
+import unified.vpn.sdk.SessionInfo;
+import unified.vpn.sdk.TrackingConstants;
+import unified.vpn.sdk.TrafficListener;
+import unified.vpn.sdk.UnifiedSdk;
+import unified.vpn.sdk.User;
+import unified.vpn.sdk.VpnException;
+import unified.vpn.sdk.VpnPermissionDeniedException;
+import unified.vpn.sdk.VpnPermissionRevokedException;
+import unified.vpn.sdk.VpnState;
+import unified.vpn.sdk.VpnStateListener;
 
 public class MainActivity extends AppCompatActivity implements TrafficListener, VpnStateListener {
 
@@ -162,15 +161,15 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
     @Override
     protected void onStart() {
         super.onStart();
-        UnifiedSDK.addTrafficListener(this);
-        UnifiedSDK.addVpnStateListener(this);
+        UnifiedSdk.addTrafficListener(this);
+        UnifiedSdk.addVpnStateListener(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        UnifiedSDK.removeVpnStateListener(this);
-        UnifiedSDK.removeTrafficListener(this);
+        UnifiedSdk.removeVpnStateListener(this);
+        UnifiedSdk.removeTrafficListener(this);
     }
 
     private void loadServers() {
@@ -181,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
             paidServerListListener.onServersLoding();
         }
         // showProgress();
-        UnifiedSDK.getInstance().getBackend().countries(new Callback<AvailableCountries>() {
+        UnifiedSdk.getInstance().getBackend().countries(new Callback<AvailableCountries>() {
             @Override
             public void success(@NonNull final AvailableCountries countries) {
                 // hideProress();
@@ -245,12 +244,12 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
     }
 
     protected boolean isLoggedIn() {
-        return UnifiedSDK.getInstance().getBackend().isLoggedIn();
+        return UnifiedSdk.getInstance().getBackend().isLoggedIn();
     }
 
     protected void loginToVpn() {
         AuthMethod authMethod = AuthMethod.anonymous();
-        UnifiedSDK.getInstance().getBackend().login(authMethod, new Callback<User>() {
+        UnifiedSdk.getInstance().getBackend().login(authMethod, new Callback<User>() {
             @Override
             public void success(@NonNull User user) {
                 if (isLoggedIn()) {
@@ -267,10 +266,10 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
 
     protected void isConnected(Callback<Boolean> callback) {
-        UnifiedSDK.getVpnState(new Callback<VPNState>() {
+        UnifiedSdk.getVpnState(new Callback<VpnState>() {
             @Override
-            public void success(@NonNull VPNState vpnState) {
-                callback.success(vpnState == VPNState.CONNECTED);
+            public void success(@NonNull VpnState vpnState) {
+                callback.success(vpnState == VpnState.CONNECTED);
             }
 
             @Override
@@ -285,13 +284,13 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
         if(isLoggedIn()){
             List<String> fallbackOrder = new ArrayList<>();
             fallbackOrder.add(HydraTransport.TRANSPORT_ID);
-            fallbackOrder.add(CaketubeTransport.TRANSPORT_ID_TCP);
-            fallbackOrder.add(CaketubeTransport.TRANSPORT_ID_UDP);
+            fallbackOrder.add(OpenVpnTransport.TRANSPORT_ID_TCP);
+            fallbackOrder.add(OpenVpnTransport.TRANSPORT_ID_UDP);
             //  showConnectProgress();
             List<String> bypassDomains = new LinkedList<>();
             bypassDomains.add("*facebook.com");
             bypassDomains.add("*wtfismyip.com");
-            UnifiedSDK.getInstance().getVPN().start(new SessionConfig.Builder()
+            UnifiedSdk.getInstance().getVpn().start(new SessionConfig.Builder()
                     .withReason(TrackingConstants.GprReasons.M_UI)
                     .withTransportFallback(fallbackOrder)
                     .withTransport(HydraTransport.TRANSPORT_ID)
@@ -332,12 +331,12 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            UnifiedSDK.getVpnState(new Callback<VPNState>() {
+            UnifiedSdk.getVpnState(new Callback<VpnState>() {
                 @Override
-                public void success(@NonNull VPNState vpnState) {
-                    if (vpnState == VPNState.CONNECTED) {
+                public void success(@NonNull VpnState vpnState) {
+                    if (vpnState == VpnState.CONNECTED) {
                       disconnectFromVnp();
-                    } else if (vpnState == VPNState.IDLE) {
+                    } else if (vpnState == VpnState.IDLE) {
                         connectToVpn();
                     }
                 }
@@ -354,7 +353,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
 
     protected void disconnectFromVnp() {
-        UnifiedSDK.getInstance().getVPN().stop(TrackingConstants.GprReasons.M_UI, new CompletableCallback() {
+        UnifiedSdk.getInstance().getVpn().stop(TrackingConstants.GprReasons.M_UI, new CompletableCallback() {
             @Override
             public void complete() {
                // hideConnectProgress();
@@ -372,16 +371,16 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void vpnStateChanged(@NonNull VPNState vpnState) {
+    public void vpnStateChanged(@NonNull VpnState vpnState) {
         switch (vpnState) {
             case CONNECTED:
-                UnifiedSDK.getStatus(new Callback<SessionInfo>() {
+                UnifiedSdk.getStatus(new Callback<SessionInfo>() {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void success(@NonNull SessionInfo sessionInfo) {
                         serverConnectingProgress.setVisibility(View.GONE);
-                        flag.setImageDrawable(getDrawableFromAssets(sessionInfo.getSessionConfig().getVirtualLocation().toLowerCase()));
-                        txtstatus.setText(getString(R.string.connected_to) + " " + localeCountries.get(sessionInfo.getSessionConfig().getVirtualLocation().toUpperCase()));
+                        flag.setImageDrawable(getDrawableFromAssets(sessionInfo.getSessionConfig().getLocation().toLowerCase()));
+                        txtstatus.setText(getString(R.string.connected_to) + " " + localeCountries.get(sessionInfo.getSessionConfig().getLocation().toUpperCase()));
                     }
                     @Override
                     public void failure(@NonNull VpnException e) {
@@ -420,14 +419,14 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
 
     protected void getCurrentServer(final Callback<String> callback) {
-        UnifiedSDK.getVpnState(new Callback<VPNState>() {
+        UnifiedSdk.getVpnState(new Callback<VpnState>() {
             @Override
-            public void success(@NonNull VPNState state) {
-                if (state == VPNState.CONNECTED) {
-                    UnifiedSDK.getStatus(new Callback<SessionInfo>() {
+            public void success(@NonNull VpnState state) {
+                if (state == VpnState.CONNECTED) {
+                    UnifiedSdk.getStatus(new Callback<SessionInfo>() {
                         @Override
                         public void success(@NonNull SessionInfo sessionInfo) {
-                            callback.success(CredentialsCompat.getServerCountry(sessionInfo.getCredentials()));
+                          //  callback.success(CredentialsCompat.getServerCountry(sessionInfo.getCredentials()));
                         }
 
                         @Override
@@ -453,12 +452,12 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
         selectedCountry = item.getCountry();
        // updateUI();
 
-        UnifiedSDK.getVpnState(new Callback<VPNState>() {
+        UnifiedSdk.getVpnState(new Callback<VpnState>() {
             @Override
-            public void success(@NonNull VPNState state) {
-                if (state == VPNState.CONNECTED) {
+            public void success(@NonNull VpnState state) {
+                if (state == VpnState.CONNECTED) {
                     showMessage("Reconnecting to VPN with " + selectedCountry);
-                    UnifiedSDK.getInstance().getVPN().stop(TrackingConstants.GprReasons.M_UI, new CompletableCallback() {
+                    UnifiedSdk.getInstance().getVpn().stop(TrackingConstants.GprReasons.M_UI, new CompletableCallback() {
                         @Override
                         public void complete() {
                             connectToVpn();
@@ -481,7 +480,6 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
         });
     }
 
-    // Example of error handling
     public void handleError(Throwable e) {
         if (e instanceof NetworkRelatedException) {
             showMessage("Check internet connection");

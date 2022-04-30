@@ -16,29 +16,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.anchorfree.reporting.TrackingConstants;
-import com.anchorfree.sdk.SessionConfig;
-import com.anchorfree.sdk.SessionInfo;
-import com.anchorfree.sdk.UnifiedSDK;
-import com.anchorfree.sdk.exceptions.PartnerApiException;
-import com.anchorfree.sdk.fireshield.FireshieldCategory;
-import com.anchorfree.sdk.fireshield.FireshieldConfig;
-import com.anchorfree.sdk.rules.TrafficRule;
-import com.anchorfree.vpnsdk.callbacks.Callback;
-import com.anchorfree.vpnsdk.callbacks.CompletableCallback;
-import com.anchorfree.vpnsdk.callbacks.VpnStateListener;
-import com.anchorfree.vpnsdk.exceptions.NetworkRelatedException;
-import com.anchorfree.vpnsdk.exceptions.VpnException;
-import com.anchorfree.vpnsdk.exceptions.VpnPermissionDeniedException;
-import com.anchorfree.vpnsdk.exceptions.VpnPermissionRevokedException;
-import com.anchorfree.vpnsdk.transporthydra.HydraTransport;
-import com.anchorfree.vpnsdk.transporthydra.HydraVpnTransportException;
-import com.anchorfree.vpnsdk.vpnservice.TrafficStats;
-import com.anchorfree.vpnsdk.vpnservice.VPNState;
 import com.github.goldfish07.hydra.vpn.util.CountriesNames;
 import com.github.goldfish07.hydra.vpn.utils.Converter;
 import com.google.android.material.snackbar.Snackbar;
-import com.northghost.caketube.CaketubeTransport;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +27,25 @@ import java.util.List;
 import java.util.Map;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
+import unified.vpn.sdk.Callback;
+import unified.vpn.sdk.CompletableCallback;
+import unified.vpn.sdk.FireshieldCategory;
+import unified.vpn.sdk.FireshieldConfig;
+import unified.vpn.sdk.HydraTransport;
+import unified.vpn.sdk.HydraVpnTransportException;
+import unified.vpn.sdk.NetworkRelatedException;
+import unified.vpn.sdk.PartnerApiException;
+import unified.vpn.sdk.SessionConfig;
+import unified.vpn.sdk.SessionInfo;
+import unified.vpn.sdk.TrackingConstants;
+import unified.vpn.sdk.TrafficRule;
+import unified.vpn.sdk.TrafficStats;
+import unified.vpn.sdk.UnifiedSdk;
+import unified.vpn.sdk.VpnException;
+import unified.vpn.sdk.VpnPermissionDeniedException;
+import unified.vpn.sdk.VpnPermissionRevokedException;
+import unified.vpn.sdk.VpnState;
+import unified.vpn.sdk.VpnStateListener;
 
 public class ServerActivity extends AppCompatActivity implements VpnStateListener {
     private String currentServer;
@@ -128,14 +127,14 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
     public void serverOnClick(View view) {
         switch (view.getId()) {
             case R.id.serverConnect:
-                UnifiedSDK.getVpnState(new Callback<VPNState>() {
+                UnifiedSdk.getVpnState(new Callback<VpnState>() {
                     @Override
-                    public void success(@NonNull VPNState state) {
-                        if (state == VPNState.CONNECTED || state == VPNState.CONNECTING_VPN || state == VPNState.CONNECTING_PERMISSIONS || state == VPNState.CONNECTING_CREDENTIALS) {
-                            UnifiedSDK.getStatus((new Callback<SessionInfo>() {
+                    public void success(@NonNull VpnState state) {
+                        if (state == VpnState.CONNECTED || state == VpnState.CONNECTING_VPN || state == VpnState.CONNECTING_PERMISSIONS || state == VpnState.CONNECTING_CREDENTIALS) {
+                            UnifiedSdk.getStatus((new Callback<SessionInfo>() {
                                 @Override
                                 public void success(@NonNull SessionInfo sessionInfo) {
-                                    if (sessionInfo.getSessionConfig().getVirtualLocation().equals(currentServer)) {
+                                    if (sessionInfo.getSessionConfig().getLocation().equals(currentServer)) {
                                         prepareStopVPN();
                                     } else {
                                         isVPNConnected = true;
@@ -150,7 +149,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
                                 }
                             }));
-                        } else if (state == VPNState.IDLE) {
+                        } else if (state == VpnState.IDLE) {
                             prepareVpn();
                         }
                     }
@@ -161,9 +160,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
                 });
                 break;
         }
-
     }
-
 
     private void prepareStopVPN() {
         statusConnection = false;
@@ -178,16 +175,16 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
 
     protected void connectToVpn() {
-        if (UnifiedSDK.getInstance().getBackend().isLoggedIn()) {
+        if (UnifiedSdk.getInstance().getBackend().isLoggedIn()) {
             List<String> fallbackOrder = new ArrayList<>();
             fallbackOrder.add(HydraTransport.TRANSPORT_ID);
-            fallbackOrder.add(CaketubeTransport.TRANSPORT_ID_TCP);
-            fallbackOrder.add(CaketubeTransport.TRANSPORT_ID_UDP);
+//            fallbackOrder.add(CaketubeTransport.TRANSPORT_ID_TCP);
+//            fallbackOrder.add(CaketubeTransport.TRANSPORT_ID_UDP);
             //  showConnectProgress();
             List<String> bypassDomains = new LinkedList<>();
             bypassDomains.add("*facebook.com");
             bypassDomains.add("*wtfismyip.com");
-            UnifiedSDK.getInstance().getVPN().start(new SessionConfig.Builder()
+            UnifiedSdk.getInstance().getVpn().start(new SessionConfig.Builder()
                     .withReason(TrackingConstants.GprReasons.M_UI)
                     .withTransportFallback(fallbackOrder)
                     .withTransport(HydraTransport.TRANSPORT_ID)
@@ -231,15 +228,15 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
     }
 
     @Override
-    public void vpnStateChanged(@NonNull VPNState vpnState) {
+    public void vpnStateChanged(@NonNull VpnState vpnState) {
         switch (vpnState) {
             case CONNECTED:
-                UnifiedSDK.getStatus(new Callback<SessionInfo>() {
+                UnifiedSdk.getStatus(new Callback<SessionInfo>() {
                     @Override
                     public void success(@NonNull SessionInfo sessionInfo) {
                         //
                         // Toast.makeText(ServerActivity.this, sessionInfo.getSessionConfig().getVirtualLocation(), Toast.LENGTH_LONG).show();
-                        if (sessionInfo.getSessionConfig().getVirtualLocation().equals(currentServer)) {
+                        if (sessionInfo.getSessionConfig().getLocation().equals(currentServer)) {
                             snackbar.show();
                             isconnected = true;
                             connectingProgress.setVisibility(View.GONE);
@@ -325,7 +322,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
 
     public void getTraffic() {
-        UnifiedSDK.getTrafficStats(new Callback<TrafficStats>() {
+        UnifiedSdk.getTrafficStats(new Callback<TrafficStats>() {
             @Override
             public void success(@NonNull TrafficStats trafficStats) {
                 if (isconnected) {
@@ -348,12 +345,12 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
     @Override
     protected void onStart() {
         super.onStart();
-        UnifiedSDK.addVpnStateListener(this);
+        UnifiedSdk.addVpnStateListener(this);
     }
 
 
     protected void disconnectFromVnp() {
-        UnifiedSDK.getInstance().getVPN().stop(TrackingConstants.GprReasons.M_UI, new CompletableCallback() {
+        UnifiedSdk.getInstance().getVpn().stop(TrackingConstants.GprReasons.M_UI, new CompletableCallback() {
             @Override
             public void complete() {
                 lastLog.setText(R.string.not_connected);

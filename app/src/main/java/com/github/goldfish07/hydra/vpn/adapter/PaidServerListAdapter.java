@@ -14,11 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.anchorfree.partner.api.data.Country;
-import com.anchorfree.sdk.UnifiedSDK;
-import com.anchorfree.vpnsdk.callbacks.Callback;
-import com.anchorfree.vpnsdk.exceptions.VpnException;
-import com.anchorfree.vpnsdk.vpnservice.VPNState;
+
 import com.github.goldfish07.hydra.vpn.BuildConfig;
 import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.ServerActivity;
@@ -28,6 +24,12 @@ import com.github.goldfish07.hydra.vpn.util.CountriesNames;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import unified.vpn.sdk.Callback;
+import unified.vpn.sdk.Country;
+import unified.vpn.sdk.UnifiedSdk;
+import unified.vpn.sdk.VpnException;
+import unified.vpn.sdk.VpnState;
 
 public class PaidServerListAdapter extends RecyclerView.Adapter<PaidServerListAdapter.ViewHolder> {
 
@@ -58,10 +60,10 @@ public class PaidServerListAdapter extends RecyclerView.Adapter<PaidServerListAd
             if (BuildConfig.DEBUG) {
                 Toast.makeText(view.getContext(), String.valueOf(PaidServerListAdapter.this.regions.get(viewHolder.getAdapterPosition())), Toast.LENGTH_LONG).show();
             }
-            UnifiedSDK.getVpnState(new Callback<VPNState>() {
+            UnifiedSdk.getVpnState(new Callback<VpnState>() {
                 @Override
-                public void success(@NonNull VPNState vpnState) {
-                    if (vpnState == VPNState.CONNECTING_VPN||vpnState==VPNState.CONNECTING_CREDENTIALS||vpnState== VPNState.CONNECTING_PERMISSIONS) {
+                public void success(@NonNull VpnState vpnState) {
+                    if (vpnState == VpnState.CONNECTING_VPN||vpnState==VpnState.CONNECTING_CREDENTIALS||vpnState== VpnState.CONNECTING_PERMISSIONS) {
                         Toast.makeText(context, "Please wait while we connecting...", Toast.LENGTH_LONG).show();
                     } else {
                         Intent intent = new Intent(view.getContext(), ServerActivity.class);

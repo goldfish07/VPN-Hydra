@@ -14,12 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.anchorfree.partner.api.data.Country;
 import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.activity.MainActivity;
 import com.github.goldfish07.hydra.vpn.adapter.PaidServerListAdapter;
 
 import java.util.List;
+
+import unified.vpn.sdk.Country;
 
 public class PaidServerFragment extends Fragment {
     private PaidServerListAdapter regionAdapter;
@@ -92,5 +93,4 @@ public class PaidServerFragment extends Fragment {
         this.regionsProgressBar.setVisibility(View.GONE);
         this.regionsRecyclerView.setVisibility(View.VISIBLE);
     }
-
 }

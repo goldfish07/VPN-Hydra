@@ -6,19 +6,21 @@ android {
     
     defaultConfig {
         applicationId "com.github.goldfish07.hydra.vpn"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 24
         versionName "2.2.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "BASE_HOST", "\"https://backend.northghost.com\""
-        buildConfigField "String", "BASE_CARRIER_ID", "\"VPN\""
+        buildConfigField "String", "BASE_CARRIER_ID", "\"91_vpn_hydra\""
+
         buildConfigField "String", "BASE_OAUTH_METHOD", "\"anonymous\""
 
         buildConfigField "String", "SHARED_PREFS", "\"NORTHGHOST_SHAREDPREFS\""
         buildConfigField "String", "STORED_HOST_URL_KEY", "\"com.northghost.afvclient.STORED_HOST_KEY\""
         buildConfigField "String", "STORED_CARRIER_ID_KEY", "\"com.northghost.afvclient.CARRIER_ID_KEY\""
+
         multiDexEnabled true
     }
 
@@ -37,8 +39,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.github.AnchorFreePartner.hydra-sdk-android:sdk:3.2.0'
-    implementation 'com.github.AnchorFreePartner.hydra-sdk-android:openvpn:3.2.0'
+    implementation 'com.github.AnchorFreePartner.hydra-sdk-android:sdk-core:4.0.0'
+    implementation 'com.github.AnchorFreePartner.hydra-sdk-android:hydra:4.0.0'
+    implementation 'com.github.AnchorFreePartner.hydra-sdk-android:openvpn:4.0.0'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'

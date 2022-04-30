@@ -8,18 +8,19 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
-import com.anchorfree.partner.api.ClientInfo;
-import com.anchorfree.partner.api.data.Country;
-import com.anchorfree.sdk.HydraTransportConfig;
-import com.anchorfree.sdk.NotificationConfig;
-import com.anchorfree.sdk.TransportConfig;
-import com.anchorfree.sdk.UnifiedSDK;
-import com.anchorfree.sdk.UnifiedSDKConfig;
-import com.anchorfree.vpnsdk.callbacks.CompletableCallback;
-import com.northghost.caketube.OpenVpnTransportConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import unified.vpn.sdk.ClientInfo;
+import unified.vpn.sdk.CompletableCallback;
+import unified.vpn.sdk.Country;
+import unified.vpn.sdk.HydraTransportConfig;
+import unified.vpn.sdk.OpenVpnTransportConfig;
+import unified.vpn.sdk.SdkNotificationConfig;
+import unified.vpn.sdk.TransportConfig;
+import unified.vpn.sdk.UnifiedSdk;
+import unified.vpn.sdk.UnifiedSdkConfig;
 
 public class MainApplication extends Application {
 
@@ -42,31 +43,31 @@ public class MainApplication extends Application {
         initHydraSdk();
     }
 
-    UnifiedSDK unifiedSDK;
+    UnifiedSdk unifiedSDK;
 
     public void initHydraSdk() {
         createNotificationChannel();
         SharedPreferences prefs = getPrefs();
         ClientInfo clientInfo = ClientInfo.newBuilder()
-                .baseUrl(prefs.getString(BuildConfig.STORED_HOST_URL_KEY, BuildConfig.BASE_HOST))
+                .addUrl(prefs.getString(BuildConfig.STORED_HOST_URL_KEY, BuildConfig.BASE_HOST))
                 .carrierId(prefs.getString(BuildConfig.STORED_CARRIER_ID_KEY, BuildConfig.BASE_CARRIER_ID))
                 .build();
         List<TransportConfig> transportConfigList = new ArrayList<>();
         transportConfigList.add(HydraTransportConfig.create());
         transportConfigList.add(OpenVpnTransportConfig.tcp());
         transportConfigList.add(OpenVpnTransportConfig.udp());
-        UnifiedSDK.update(transportConfigList, CompletableCallback.EMPTY);
-        UnifiedSDKConfig config = UnifiedSDKConfig.newBuilder().idfaEnabled(false).build();
-        unifiedSDK = UnifiedSDK.getInstance(clientInfo, config);
+        UnifiedSdk.update(transportConfigList, CompletableCallback.EMPTY);
+        UnifiedSdkConfig config = UnifiedSdkConfig.newBuilder().build();//.idfaEnabled(false)
+        unifiedSDK = UnifiedSdk.getInstance(clientInfo, config);
 
-        NotificationConfig notificationConfig = NotificationConfig.newBuilder()
+        SdkNotificationConfig notificationConfig = SdkNotificationConfig.newBuilder()
                 .title(getResources().getString(R.string.app_name))
                 .channelId(CHANNEL_ID)
                 .build();
-        UnifiedSDK.update(notificationConfig);
+        UnifiedSdk.update(notificationConfig);
 
-        UnifiedSDK.setLoggingLevel(Log.VERBOSE);
-        UnifiedSDK.setReconnectionEnabled(false);
+        UnifiedSdk.setLoggingLevel(Log.VERBOSE);
+        UnifiedSdk.setReconnectionEnabled(false);
     }
 
     public void setNewHostAndCarrier(String hostUrl, String carrierId) {
