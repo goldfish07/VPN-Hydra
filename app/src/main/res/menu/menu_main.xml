@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.kusenko.myapplication.MainActivity">
+
+
+    <!--<item
+    android:id="@+id/allowedapps"
+    android:title="Allowed Apps"/>-->
+
+    <item
+        android:id="@+id/privacypolicy"
+        android:title="Privacy Policy"
+       />
+
+
+    <item
+        android:id="@+id/faq"
+        android:title="FAQ"/>
+    <item
+        android:id="@+id/actionAbout"
+        android:title="@string/about"
+        />
+
+
+</menu>

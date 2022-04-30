@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name" translatable="false">VPN-hydra</string>
+    <string name="vpn_process_name" translatable="false">:my.custom.vpn.process.name</string>
+    <string name="about">About</string>
+    <string name="connect">Connect</string>
+    <string name="connecting">Connecting</string>
+    <string name="connected">Connected</string>
+    <string name="dialog_connected">Connection Established.</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="disconnecting">Disconnecting</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="not_connected">Not Connected</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="connected_to">Connected to</string>
+    <string name="error_internet_connection">Check internet connection</string>
+    <string name="error_vpn_service">Error in VPN Service</string>
+
+</resources>

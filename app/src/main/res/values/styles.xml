@@ -1,0 +1,113 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">31dp</item>
+        <item name="android:background">@drawable/blue_button_background</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">21dp</item>
+        <item name="android:paddingRight">21dp</item>
+        <item name="strokeColor">@color/colorAccent</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.MaterialComponents.Light">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="colorAccent">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlHighlight">@color/primary</item>
+        <item name="android:colorBackground">@color/primary</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AppDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <!-- Define color properties as desired -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:textColorHighlight">@android:color/white</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <style name="AppAlertTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorAccent">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:textColorHighlight">@color/primary</item>
+    </style>
+    <string name="nativead1" translatable="false">6250842728</string>
+
+    <style name="ButtonLayout" parent="android:Theme">
+        <item name="android:paddingLeft">@dimen/default_padding</item>
+        <item name="android:paddingRight">@dimen/default_padding</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="DefaultBtn" parent="@android:style/TextAppearance">
+        <item name="android:paddingTop">@dimen/default_padding</item>
+        <item name="android:paddingBottom">@dimen/default_padding</item>
+        <item name="android:background">@drawable/btn_bkg</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="StateText" parent="@android:style/TextAppearance">
+        <item name="android:paddingLeft">@dimen/default_padding</item>
+        <item name="android:paddingRight">@dimen/default_padding</item>
+        <item name="android:textSize">@dimen/default_text_size</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:alpha">0.7</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+
+    <style name="AppTheme.AdAttribution">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:text">Ad</item>
+        <item name="android:background">#FFCC66</item>
+        <item name="android:width">15dp</item>
+        <item name="android:height">15dp</item>
+    </style>
+
+
+
+    <style name="CustomHorizotalProgress" parent="Widget.MaterialProgressBar.ProgressBar.Horizontal">
+        <item name="android:color">@color/primary</item>
+    </style>
+    <string name="banner" translatable="false">ca-app-pub-7582801833552327/5599319618</string>
+    <style name="serverDetails" >
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="serverName">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="serverList" >
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="infoServersList" >
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+</resources>

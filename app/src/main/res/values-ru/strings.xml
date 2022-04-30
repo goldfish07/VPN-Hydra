@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connect">подключения</string>
+    <string name="connected">связанный</string>
+    <string name="connected_to">подключен к</string>
+    <string name="connecting">соединительный</string>
+    <string name="dialog_connected">Соединение установлено</string>
+    <string name="disconnect">Отключить</string>
+    <string name="disconnected">несвязно</string>
+    <string name="disconnecting">Отсоединение</string>
+    <string name="dismiss">отклонять</string>
+    <string name="error_internet_connection">Проверьте интернет соединение</string>
+    <string name="error_vpn_service">Ошибка в VPN-сервисе</string>
+    <string name="not_connected">Нет соединения</string>
+    <string name="please_wait">подождите</string>
+    <string name="privacy_policy">политика конфиденциальности</string>
+    <string name="about">около</string>
+</resources>

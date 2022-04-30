@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connect">conectar</string>
+    <string name="connected">conectado</string>
+    <string name="connected_to">conectado a</string>
+    <string name="connecting">conectando</string>
+    <string name="dialog_connected">Conexão estabelecida.</string>
+    <string name="disconnect">Desconectar</string>
+    <string name="disconnected">Desconectado</string>
+    <string name="disconnecting">Desconectando</string>
+    <string name="dismiss">Dispensar</string>
+    <string name="error_internet_connection">verifique a conexão com a internet</string>
+    <string name="error_vpn_service">Erro no serviço VPN</string>
+    <string name="not_connected">Não conectado</string>
+    <string name="please_wait">Por favor, espere</string>
+    <string name="privacy_policy">Política de Privacidade</string>
+    <string name="about">Sobre</string>
+</resources>
