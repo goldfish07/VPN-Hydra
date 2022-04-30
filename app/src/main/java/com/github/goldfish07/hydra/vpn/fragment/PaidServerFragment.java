@@ -21,15 +21,10 @@ import com.github.goldfish07.hydra.vpn.adapter.PaidServerListAdapter;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class PaidServerFragment extends Fragment {
     private PaidServerListAdapter regionAdapter;
-    @BindView(R.id.regions_progress)
     ProgressBar regionsProgressBar;
 
-    @BindView(R.id.regions_recycler_view)
     RecyclerView regionsRecyclerView;
 
     private AppCompatActivity activity;
@@ -52,12 +47,13 @@ public class PaidServerFragment extends Fragment {
     @Nullable
     public View onCreateView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View inflate = layoutInflater.inflate(R.layout.fragment_free_server, viewGroup, false);
+        regionsProgressBar = inflate.findViewById(R.id.regions_progress);
+        regionsRecyclerView = inflate.findViewById(R.id.regions_recycler_view);
         defineIds(inflate);
         return inflate;
     }
 
     private void defineIds(View view) {
-        ButterKnife.bind(this,view);
         this.regionsRecyclerView.setHasFixedSize(true);
         this.regionsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.regionAdapter = new PaidServerListAdapter(getContext());

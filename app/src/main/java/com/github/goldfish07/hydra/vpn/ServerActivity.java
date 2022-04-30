@@ -46,10 +46,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
-
 
 public class ServerActivity extends AppCompatActivity implements VpnStateListener {
     private String currentServer;
@@ -64,31 +61,24 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
     private boolean isVPNConnected;
 
-
-    @BindView(R.id.serverConnectingProgress)
     MaterialProgressBar connectingProgress;
-
-    @BindView(R.id.serverConnect)
     Button serverConnectBtn;
-
-    @BindView(R.id.serverStatus)
     TextView lastLog;
-
-
-    @BindView(R.id.serverTrafficIn)
     TextView trafficIn;
-
-    @BindView(R.id.serverTrafficOut)
     TextView trafficOut;
-
-    @BindView(R.id.serverFlag)
     ImageView serverflag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_server);
-        ButterKnife.bind(this);
+        connectingProgress = findViewById(R.id.serverConnectingProgress);
+        serverConnectBtn = findViewById(R.id.serverConnect);
+        lastLog = findViewById(R.id.serverStatus);
+        trafficIn = findViewById(R.id.serverTrafficIn);
+        trafficOut = findViewById(R.id.serverTrafficOut);
+        serverflag = findViewById(R.id.serverFlag);
+
         connectingProgress.setProgressDrawable(getResources().getDrawable(R.drawable.newporgress));
         trafficIn.setText("0 B");
         trafficOut.setText("0 B");
@@ -98,7 +88,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
 
         lastLog.setText(R.string.not_connected);
         snackbar = Snackbar.make(findViewById(R.id.coordinatorLayout), getString(R.string.connected), Snackbar.LENGTH_INDEFINITE);

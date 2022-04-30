@@ -57,8 +57,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class MainActivity extends AppCompatActivity implements TrafficListener, VpnStateListener {
@@ -72,10 +71,8 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
     public static ArrayList freeCountries;
     public static ArrayList paidCountries;
 
-    @BindView(R.id.viewpager)
     ViewPager viewPager;
 
-    @BindView(R.id.tablayout)
     SegmentTabLayout tabLayout;
 
     public interface FreeServerListListener {
@@ -89,16 +86,12 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
         void onServersLoding();
     }
-    @BindView(R.id.connectBtn)
     Button connectBtn;
 
-    @BindView(R.id.imgFlag)
     ImageView flag;
 
-    @BindView(R.id.txtstatus)
     TextView txtstatus;
 
-    @BindView(R.id.serverConnectingProgress)
     MaterialProgressBar serverConnectingProgress;
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
@@ -112,8 +105,17 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        connectBtn.setOnClickListener(clickListener);
+
+
+        viewPager = findViewById(R.id.viewpager);
+        tabLayout = findViewById(R.id.tablayout);
+        connectBtn = findViewById(R.id.connectBtn);
+        flag = findViewById(R.id.imgFlag);
+        txtstatus = findViewById(R.id.txtstatus);
+        serverConnectingProgress = findViewById(R.id.serverConnectingProgress);
+
+
+                connectBtn.setOnClickListener(clickListener);
         localeCountries = CountriesNames.getCountries();
 
 

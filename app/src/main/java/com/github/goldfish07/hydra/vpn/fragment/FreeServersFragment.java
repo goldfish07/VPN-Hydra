@@ -20,30 +20,23 @@ import com.github.goldfish07.hydra.vpn.adapter.FreeServerListAdapter;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class FreeServersFragment extends Fragment  {
 
     private FreeServerListAdapter regionAdapter;
-
-    @BindView(R.id.regions_progress)
     ProgressBar regionsProgressBar;
-
-    @BindView(R.id.regions_recycler_view)
     RecyclerView regionsRecyclerView;
-
 
     @Nullable
     public View onCreateView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View inflate = layoutInflater.inflate(R.layout.free_servers_fragment, viewGroup, false);
-        defineIds(inflate);
+         regionsProgressBar = inflate.findViewById(R.id.regions_progress);
+        regionsRecyclerView = inflate.findViewById(R.id.regions_recycler_view);
+                defineIds(inflate);
         return inflate;
     }
 
 
     private void defineIds(View view) {
-        ButterKnife.bind(this,view);
         this.regionsRecyclerView.setHasFixedSize(true);
         this.regionsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.regionAdapter = new FreeServerListAdapter(getContext());

@@ -34,9 +34,6 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
     private Context context;
     private List<Country> regions;
 
-
-
-
     public FreeServerListAdapter(Context context) {
         this.context = context;
     }
