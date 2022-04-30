@@ -112,9 +112,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
         flag = findViewById(R.id.imgFlag);
         txtstatus = findViewById(R.id.txtstatus);
         serverConnectingProgress = findViewById(R.id.serverConnectingProgress);
-
-
-                connectBtn.setOnClickListener(clickListener);
+        connectBtn.setOnClickListener(clickListener);
         localeCountries = CountriesNames.getCountries();
 
 
@@ -379,8 +377,8 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
                     @Override
                     public void success(@NonNull SessionInfo sessionInfo) {
                         serverConnectingProgress.setVisibility(View.GONE);
-                        flag.setImageDrawable(getDrawableFromAssets(sessionInfo.getSessionConfig().getLocation().toLowerCase()));
-                        txtstatus.setText(getString(R.string.connected_to) + " " + localeCountries.get(sessionInfo.getSessionConfig().getLocation().toUpperCase()));
+                        flag.setImageDrawable(getDrawableFromAssets(sessionInfo.getSessionConfig().getCountry().toLowerCase()));
+                        txtstatus.setText(getString(R.string.connected_to) + " " + localeCountries.get(sessionInfo.getSessionConfig().getCountry().toLowerCase().toUpperCase()));
                     }
                     @Override
                     public void failure(@NonNull VpnException e) {
@@ -416,8 +414,6 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
     }
 
 
-
-
     protected void getCurrentServer(final Callback<String> callback) {
         UnifiedSdk.getVpnState(new Callback<VpnState>() {
             @Override
@@ -445,7 +441,6 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
             }
         });
     }
-
 
 
     public void onRegionSelected(Country item) {
@@ -562,5 +557,4 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
             return fragment;
         }
     }
-
 }

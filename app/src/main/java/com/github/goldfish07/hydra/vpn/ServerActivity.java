@@ -1,5 +1,6 @@
 package com.github.goldfish07.hydra.vpn;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
@@ -93,6 +95,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         Snackbar.SnackbarLayout snackbarView = (Snackbar.SnackbarLayout) snackbar.getView();
         snackbarView.setBackgroundColor(Color.parseColor("#00e676"));
         initView(getIntent());
+        UnifiedSdk.addVpnStateListener(this);
     }
 
     private void initView(Intent intent) {
@@ -104,6 +107,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
     }
 
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private Drawable getDrawableFromAssets(String str) {
         if (str != null) {
             try {
@@ -121,7 +125,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         connectingProgress.setVisibility(View.VISIBLE);
         serverConnectBtn.setText(getString(R.string.disconnect));
         connectToVpn();
-
     }
 
     public void serverOnClick(View view) {
@@ -134,7 +137,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
                             UnifiedSdk.getStatus((new Callback<SessionInfo>() {
                                 @Override
                                 public void success(@NonNull SessionInfo sessionInfo) {
-                                    if (sessionInfo.getSessionConfig().getLocation().equals(currentServer)) {
+                                    if (sessionInfo.getSessionConfig().getCountry().toLowerCase().equals(currentServer)) {
                                         prepareStopVPN();
                                     } else {
                                         isVPNConnected = true;
@@ -206,6 +209,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         else {
             // showMessage("Login please");
         }
+
     }
 
     FireshieldConfig createFireshieldConfig() {
@@ -236,7 +240,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
                     public void success(@NonNull SessionInfo sessionInfo) {
                         //
                         // Toast.makeText(ServerActivity.this, sessionInfo.getSessionConfig().getVirtualLocation(), Toast.LENGTH_LONG).show();
-                        if (sessionInfo.getSessionConfig().getLocation().equals(currentServer)) {
+                        if (sessionInfo.getSessionConfig().getCountry().toLowerCase().equals(currentServer)) {
                             snackbar.show();
                             isconnected = true;
                             connectingProgress.setVisibility(View.GONE);
@@ -339,13 +343,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
             }
         });
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        UnifiedSdk.addVpnStateListener(this);
     }
 
 
