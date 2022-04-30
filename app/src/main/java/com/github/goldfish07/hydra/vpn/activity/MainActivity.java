@@ -397,7 +397,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
                 txtstatus.setText(getString(R.string.disconnecting));
                 break;
             case IDLE:
-                flag.setImageResource(R.drawable.default_flag);
+                flag.setImageResource(R.drawable.unknown);
                 serverConnectingProgress.setVisibility(View.GONE);
                 connectBtn.setText(getString(R.string.connect));
                 txtstatus.setText(getString(R.string.not_connected));
@@ -519,7 +519,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
                 e.printStackTrace();
             }
         }
-        return this.getResources().getDrawable(R.drawable.default_flag);
+        return this.getResources().getDrawable(R.drawable.unknown);
     }
 
 

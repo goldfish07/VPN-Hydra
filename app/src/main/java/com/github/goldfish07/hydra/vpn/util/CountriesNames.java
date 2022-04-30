@@ -42,7 +42,6 @@ public class CountriesNames {
                 e.printStackTrace();
             }
         }
-        return context.getResources().getDrawable(R.drawable.default_flag);
+        return context.getResources().getDrawable(R.drawable.unknown);
     }
-
 }

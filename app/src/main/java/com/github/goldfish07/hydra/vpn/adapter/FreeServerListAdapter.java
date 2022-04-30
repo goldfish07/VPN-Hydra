@@ -132,6 +132,6 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
                 e.printStackTrace();
             }
         }
-        return this.context.getResources().getDrawable(R.drawable.default_flag);
+        return this.context.getResources().getDrawable(R.drawable.unknown);
     }
 }

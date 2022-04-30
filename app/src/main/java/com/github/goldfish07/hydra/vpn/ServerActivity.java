@@ -117,7 +117,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
                 e.printStackTrace();
             }
         }
-        return this.getResources().getDrawable(R.drawable.default_flag);
+        return this.getResources().getDrawable(R.drawable.unknown);
     }
 
 
