@@ -2,24 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.MainActivity">
 
-
-    <!--<item
-    android:id="@+id/allowedapps"
-    android:title="Allowed Apps"/>-->
-
     <item
         android:id="@+id/privacypolicy"
-        android:title="Privacy Policy"
-       />
-
+        android:title="Privacy Policy" />
 
     <item
         android:id="@+id/faq"
         android:title="FAQ"/>
+
     <item
         android:id="@+id/actionAbout"
-        android:title="@string/about"
-        />
-
-
+        android:title="@string/about" />
 </menu>
