@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/connetion_info_bg">
+        android:background="@drawable/connection_info_bg">
 
         <RelativeLayout
             android:id="@+id/connectionInfo"
@@ -51,7 +51,7 @@
                     android:src="@drawable/unknown" />
 
                 <TextView
-                    android:id="@+id/txtstatus"
+                    android:id="@+id/txtStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Connect to Vpn"
@@ -112,7 +112,7 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:background="@drawable/roundview"
+        android:background="@drawable/roundView"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
@@ -134,7 +134,7 @@
             android:nestedScrollingEnabled="true"/>-->
 
         <com.flyco.tablayout.SegmentTabLayout
-            android:id="@+id/tablayout"
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="36dp"
             android:layout_marginTop="10dp"
@@ -153,7 +153,7 @@
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tablayout" />
+            android:layout_below="@id/tabLayout" />
     </RelativeLayout>
 </RelativeLayout>
 

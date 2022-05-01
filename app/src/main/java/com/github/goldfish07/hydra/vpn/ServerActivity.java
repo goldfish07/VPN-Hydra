@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import unified.vpn.sdk.Callback;
@@ -54,7 +53,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
     public static boolean statusConnection = false;
     Map<String, String> localeCountries;
-    public static boolean isconnected;
+    public static boolean isConnected;
 
     Snackbar snackbar;
 
@@ -67,7 +66,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
     TextView lastLog;
     TextView trafficIn;
     TextView trafficOut;
-    ImageView serverflag;
+    ImageView serverFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +77,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         lastLog = findViewById(R.id.serverStatus);
         trafficIn = findViewById(R.id.serverTrafficIn);
         trafficOut = findViewById(R.id.serverTrafficOut);
-        serverflag = findViewById(R.id.serverFlag);
+        serverFlag = findViewById(R.id.serverFlag);
 
         trafficIn.setText("0 B");
         trafficOut.setText("0 B");
@@ -99,7 +98,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
     private void initView(Intent intent) {
         currentServer = intent.getStringExtra("country");
-        serverflag.setImageDrawable(getDrawableFromAssets(currentServer));
+        serverFlag.setImageDrawable(getDrawableFromAssets(currentServer));
         String name = localeCountries.get(currentServer.toUpperCase());
         ((TextView) findViewById(R.id.serverCountry)).setText(name);
 
@@ -241,7 +240,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
                         // Toast.makeText(ServerActivity.this, sessionInfo.getSessionConfig().getVirtualLocation(), Toast.LENGTH_LONG).show();
                         if (sessionInfo.getSessionConfig().getCountry().toLowerCase().equals(currentServer)) {
                             snackbar.show();
-                            isconnected = true;
+                            isConnected = true;
                             connectingProgress.setVisibility(View.GONE);
                             getTraffic();
                             serverConnectBtn.setText(getString(R.string.disconnect));
@@ -328,7 +327,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         UnifiedSdk.getTrafficStats(new Callback<TrafficStats>() {
             @Override
             public void success(@NonNull TrafficStats trafficStats) {
-                if (isconnected) {
+                if (isConnected) {
                     trafficIn.setText(Converter.humanReadableByteCountOld(trafficStats.getBytesRx(), false));
                     trafficOut.setText(Converter.humanReadableByteCountOld(trafficStats.getBytesTx(), false));
                 } else {
@@ -366,6 +365,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
     @Override
     protected void onResume() {
         super.onResume();
-        isconnected = false;
+        isConnected = false;
     }
 }

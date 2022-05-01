@@ -56,12 +56,12 @@ public class FreeServersFragment extends Fragment  {
 
         @Override
         public void onGotFreeServers(List<Country> list) {
-            FreeServersFragment.this.hideProress();
+            FreeServersFragment.this.hideProgress();
             FreeServersFragment.this.regionAdapter.setRegions(list);
         }
 
         @Override
-        public void onServersLoding() {
+        public void onServersLoading() {
             FreeServersFragment.this.showProgress();
         }
     };
@@ -72,7 +72,7 @@ public class FreeServersFragment extends Fragment  {
         this.regionsRecyclerView.setVisibility(View.INVISIBLE);
     }
 
-    private void hideProress() {
+    private void hideProgress() {
         this.regionsProgressBar.setVisibility(View.GONE);
         this.regionsRecyclerView.setVisibility(View.VISIBLE);
     }

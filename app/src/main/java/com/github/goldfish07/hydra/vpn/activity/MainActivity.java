@@ -76,19 +76,19 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
     public interface FreeServerListListener {
         void onGotFreeServers(List<Country> list);
 
-        void onServersLoding();
+        void onServersLoading();
     }
 
     public interface PaidServerListListener {
         void onGotPaidServers(List<Country> list);
 
-        void onServersLoding();
+        void onServersLoading();
     }
     Button connectBtn;
 
     ImageView flag;
 
-    TextView txtstatus;
+    TextView txtStatus;
 
     LinearProgressIndicator serverConnectingProgress;
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
     Map<String, String> localeCountries;
 
-    boolean isconnected = false;;
+    boolean isConnected = false;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,10 +106,10 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
 
         viewPager = findViewById(R.id.viewpager);
-        tabLayout = findViewById(R.id.tablayout);
+        tabLayout = findViewById(R.id.tabLayout);
         connectBtn = findViewById(R.id.connectBtn);
         flag = findViewById(R.id.imgFlag);
-        txtstatus = findViewById(R.id.txtstatus);
+        txtStatus = findViewById(R.id.txtStatus);
         serverConnectingProgress = findViewById(R.id.serverConnectingProgress);
         connectBtn.setOnClickListener(clickListener);
         localeCountries = CountriesNames.getCountries();
@@ -171,16 +171,16 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
     private void loadServers() {
         if (freeServerListListener != null) {
-            freeServerListListener.onServersLoding();
+            freeServerListListener.onServersLoading();
         }
         if (paidServerListListener != null) {
-            paidServerListListener.onServersLoding();
+            paidServerListListener.onServersLoading();
         }
         // showProgress();
         UnifiedSdk.getInstance().getBackend().countries(new Callback<AvailableCountries>() {
             @Override
             public void success(@NonNull final AvailableCountries countries) {
-                // hideProress();
+                // hideProgress();
                 // regionAdapter.setRegions(countries.getCountries());
                 myData.countries = countries.getCountries();
                 divideList(myData.countries);
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
                     .withTransportFallback(fallbackOrder)
                     .withTransport(HydraTransport.TRANSPORT_ID)
                     .withVirtualLocation(connectToBestServer())
-                    .withFireshieldConfig(createFireshieldConfig())
+                    .withFireshieldConfig(createFireShieldConfig())
                     //.addDnsRule(TrafficRule.Builder.bypass().fromDomains(bypassDomains))
                     .build(), new CompletableCallback() {
                 @Override
@@ -309,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
         }
     }
 
-    FireshieldConfig createFireshieldConfig() {
+    FireshieldConfig createFireShieldConfig() {
         FireshieldConfig.Builder builder = new FireshieldConfig.Builder();
         builder.enabled(true);
         builder.addService(FireshieldConfig.Services.IP);
@@ -377,7 +377,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
                     public void success(@NonNull SessionInfo sessionInfo) {
                         serverConnectingProgress.setVisibility(View.GONE);
                         flag.setImageDrawable(getDrawableFromAssets(sessionInfo.getSessionConfig().getCountry().toLowerCase()));
-                        txtstatus.setText(getString(R.string.connected_to) + " " + localeCountries.get(sessionInfo.getSessionConfig().getCountry().toLowerCase().toUpperCase()));
+                        txtStatus.setText(getString(R.string.connected_to) + " " + localeCountries.get(sessionInfo.getSessionConfig().getCountry().toLowerCase().toUpperCase()));
                     }
                     @Override
                     public void failure(@NonNull VpnException e) {
@@ -386,28 +386,28 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
                 });
                 serverConnectingProgress.setVisibility(View.GONE);
                 connectBtn.setText(getString(R.string.disconnect));
-                isconnected = true;
-                /*wwweif (!current_server.isEmpty()) {
+                isConnected = true;
+                /*if (!current_server.isEmpty()) {
                     flag.setImageDrawable(getDrawableFromAssets(current_server));
                 }*/
                 break;
             case DISCONNECTING:
                 connectBtn.setText(getString(R.string.disconnecting));
-                txtstatus.setText(getString(R.string.disconnecting));
+                txtStatus.setText(getString(R.string.disconnecting));
                 break;
             case IDLE:
                 flag.setImageResource(R.drawable.unknown);
                 serverConnectingProgress.setVisibility(View.GONE);
                 connectBtn.setText(getString(R.string.connect));
-                txtstatus.setText(getString(R.string.not_connected));
-                isconnected = false;
+                txtStatus.setText(getString(R.string.not_connected));
+                isConnected = false;
                 break;
             case CONNECTING_PERMISSIONS:
             case CONNECTING_CREDENTIALS:
             case CONNECTING_VPN:
                 serverConnectingProgress.setVisibility(View.VISIBLE);
                 connectBtn.setText(getString(R.string.disconnect));
-                txtstatus.setText(R.string.connecting);
+                txtStatus.setText(R.string.connecting);
                 break;
         }
     }

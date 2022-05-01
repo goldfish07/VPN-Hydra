@@ -44,7 +44,7 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textColorHighlight">@color/primary</item>
     </style>
-    <string name="nativead1" translatable="false">6250842728</string>
+    <string name="nativeAd1" translatable="false">6250842728</string>
 
     <style name="ButtonLayout" parent="android:Theme">
         <item name="android:paddingLeft">@dimen/default_padding</item>

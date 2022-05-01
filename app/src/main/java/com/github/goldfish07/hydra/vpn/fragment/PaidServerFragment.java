@@ -78,7 +78,7 @@ public class PaidServerFragment extends Fragment {
         }
 
         @Override
-        public void onServersLoding() {
+        public void onServersLoading() {
             PaidServerFragment.this.showProgress();
         }
     };
