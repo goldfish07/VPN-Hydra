@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.goldfish07.hydra.vpn.util.CountriesNames;
 import com.github.goldfish07.hydra.vpn.utils.Converter;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
@@ -28,7 +29,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import unified.vpn.sdk.Callback;
 import unified.vpn.sdk.CompletableCallback;
 import unified.vpn.sdk.FireshieldCategory;
@@ -62,7 +62,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
     private boolean isVPNConnected;
 
-    MaterialProgressBar connectingProgress;
+    LinearProgressIndicator connectingProgress;
     Button serverConnectBtn;
     TextView lastLog;
     TextView trafficIn;
@@ -80,7 +80,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         trafficOut = findViewById(R.id.serverTrafficOut);
         serverflag = findViewById(R.id.serverFlag);
 
-        connectingProgress.setProgressDrawable(getResources().getDrawable(R.drawable.newporgress));
         trafficIn.setText("0 B");
         trafficOut.setText("0 B");
         localeCountries = CountriesNames.getCountries();

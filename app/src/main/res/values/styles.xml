@@ -6,7 +6,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <style name="outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">31dp</item>
@@ -83,17 +82,6 @@
         <item name="android:background">#FFCC66</item>
         <item name="android:width">15dp</item>
         <item name="android:height">15dp</item>
-    </style>
-
-
-
-    <style name="CustomHorizotalProgress" parent="Widget.MaterialProgressBar.ProgressBar.Horizontal">
-        <item name="android:color">@color/primary</item>
-    </style>
-    <string name="banner" translatable="false">ca-app-pub-7582801833552327/5599319618</string>
-    <style name="serverDetails" >
-        <item name="android:textSize">13sp</item>
-        <item name="android:layout_gravity">center</item>
     </style>
 
     <style name="serverName">

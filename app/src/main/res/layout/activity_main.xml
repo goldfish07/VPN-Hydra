@@ -91,17 +91,15 @@
         android:gravity="center_vertical"
         android:layout_below="@id/imageElasticView"
         android:orientation="vertical">
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/serverConnectingProgress"
-            style="@style/Widget.MaterialProgressBar.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="4dp"
             android:layout_gravity="center"
             android:indeterminate="true"
             android:visibility="gone"
-            app:mpb_progressStyle="horizontal"
-            app:mpb_progressTint="@color/colorAccent"
-            app:mpb_useIntrinsicPadding="false" />
+            app:indicatorColor="@color/colorAccent" />
 
     </LinearLayout>
     <RelativeLayout

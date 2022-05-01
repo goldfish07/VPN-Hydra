@@ -26,6 +26,7 @@ import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.fragment.FreeServersFragment;
 import com.github.goldfish07.hydra.vpn.fragment.PaidServerFragment;
 import com.github.goldfish07.hydra.vpn.util.CountriesNames;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,8 +34,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import unified.vpn.sdk.AuthMethod;
 import unified.vpn.sdk.AvailableCountries;
 import unified.vpn.sdk.Callback;
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
     TextView txtstatus;
 
-    MaterialProgressBar serverConnectingProgress;
+    LinearProgressIndicator serverConnectingProgress;
 
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private String[] mTitles = {"Free Server", "Premium Server"};
