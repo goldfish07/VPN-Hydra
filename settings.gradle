@@ -1,1 +1,1 @@
-include ':app', ':elastic_view'
+include ':app'
