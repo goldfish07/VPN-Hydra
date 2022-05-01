@@ -20,8 +20,4 @@ public class CustomLinearLayout extends LinearLayout {
     public CustomLinearLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
-
-
-
 }

@@ -49,13 +49,12 @@ public class PaidServerFragment extends Fragment {
     public View onCreateView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View inflate = layoutInflater.inflate(R.layout.fragment_free_server, viewGroup, false);
         regionsProgressBar = inflate.findViewById(R.id.regions_progress);
-        regionsRecyclerView = inflate.findViewById(R.id.regions_recycler_view);
-        defineIds(inflate);
+        regionsRecyclerView = inflate.findViewById(R.id.recycler_view);
+        defineIds();
         return inflate;
     }
 
-    private void defineIds(View view) {
-        this.regionsRecyclerView.setHasFixedSize(true);
+    private void defineIds() {
         this.regionsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.regionAdapter = new PaidServerListAdapter(getContext());
         this.regionsRecyclerView.setAdapter(this.regionAdapter);
@@ -73,7 +72,7 @@ public class PaidServerFragment extends Fragment {
     private MainActivity.PaidServerListListener paidServerListListener = new MainActivity.PaidServerListListener() {
         @Override
         public void onGotPaidServers(List<Country> list) {
-            PaidServerFragment.this.hideProress();
+            PaidServerFragment.this.hideProgress();
             PaidServerFragment.this.regionAdapter.setRegions(list);
         }
 
@@ -89,7 +88,7 @@ public class PaidServerFragment extends Fragment {
         this.regionsRecyclerView.setVisibility(View.INVISIBLE);
     }
 
-    private void hideProress() {
+    private void hideProgress() {
         this.regionsProgressBar.setVisibility(View.GONE);
         this.regionsRecyclerView.setVisibility(View.VISIBLE);
     }

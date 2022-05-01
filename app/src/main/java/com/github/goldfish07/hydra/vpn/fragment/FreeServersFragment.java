@@ -11,8 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-;
-
 import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.activity.MainActivity;
 import com.github.goldfish07.hydra.vpn.adapter.FreeServerListAdapter;
@@ -31,18 +29,16 @@ public class FreeServersFragment extends Fragment  {
     public View onCreateView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View inflate = layoutInflater.inflate(R.layout.free_servers_fragment, viewGroup, false);
          regionsProgressBar = inflate.findViewById(R.id.regions_progress);
-        regionsRecyclerView = inflate.findViewById(R.id.regions_recycler_view);
+        regionsRecyclerView = inflate.findViewById(R.id.recycler_view);
                 defineIds(inflate);
         return inflate;
     }
 
 
     private void defineIds(View view) {
-        this.regionsRecyclerView.setHasFixedSize(true);
         this.regionsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.regionAdapter = new FreeServerListAdapter(getContext());
         this.regionsRecyclerView.setAdapter(this.regionAdapter);
-        MainActivity mainActivity = (MainActivity) getActivity();
         if (MainActivity.freeCountries != null) {
             this.regionAdapter.setRegions(MainActivity.freeCountries);
             this.regionsRecyclerView.setVisibility(View.VISIBLE);
@@ -52,7 +48,7 @@ public class FreeServersFragment extends Fragment  {
         MainActivity.setFreeServerListListener(this.freeServerListListener);
     }
 
-    private MainActivity.FreeServerListListener freeServerListListener = new MainActivity.FreeServerListListener() {
+    private final MainActivity.FreeServerListListener freeServerListListener = new MainActivity.FreeServerListListener() {
 
         @Override
         public void onGotFreeServers(List<Country> list) {

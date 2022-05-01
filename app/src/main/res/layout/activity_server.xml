@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context="com.github.goldfish07.hydra.vpn.ServerActivity">
 
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,16 +16,13 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <com.github.goldfish07.hydra.vpn.util.BehaviorScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
-            android:layout_marginBottom="8dp"
-            >
-
+            android:layout_marginBottom="8dp">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -58,7 +54,6 @@
                 android:orientation="vertical"
                 app:cardCornerRadius="8dp">
 
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -79,8 +74,7 @@
                         android:layout_below="@id/serverConnectingProgress"
                         android:layout_alignParentEnd="true"
                         android:layout_gravity="end"
-                        android:orientation="vertical"
-                        android:layout_alignParentRight="true">
+                        android:orientation="vertical">
 
 
                         <ImageView
@@ -88,9 +82,8 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_gravity="center"
-                            android:layout_marginRight="4dp"
+                            android:layout_marginEnd="4dp"
                             android:src="@drawable/ic_connect_excellent" />
-
                     </LinearLayout>
 
                     <LinearLayout
@@ -99,14 +92,12 @@
                         android:layout_below="@id/serverConnectingProgress"
                         android:orientation="vertical">
 
-
                         <ImageView
                             android:id="@+id/serverFlag"
                             android:layout_width="150dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/us" />
-
+                            android:src="@drawable/unknown" />
 
                         <TextView
                             android:id="@+id/serverCountry"
@@ -132,33 +123,26 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
 
-
                             <LinearLayout
                                 android:id="@+id/upload"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentEnd="true"
                                 android:layout_marginEnd="20dp"
-                                android:orientation="horizontal"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginRight="20dp">
+                                android:orientation="horizontal">
 
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="8dp"
                                     android:src="@drawable/ic_upload"
                                     android:layout_marginStart="8dp" />
-
 
                                 <TextView
                                     android:id="@+id/serverTrafficOut"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="1.0MB" />
-
                             </LinearLayout>
-
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
@@ -166,28 +150,21 @@
                                 android:layout_alignParentStart="true"
                                 android:layout_gravity="center"
                                 android:layout_marginStart="20dp"
-                                android:orientation="horizontal"
-                                android:layout_alignParentLeft="true"
-                                android:layout_marginLeft="20dp">
+                                android:orientation="horizontal">
 
                                 <ImageView
                                     android:id="@+id/ic_download"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:contentDescription="TODO"
                                     android:src="@drawable/ic_download" />
 
-
                                 <TextView
-
                                     android:id="@+id/serverTrafficIn"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_toRightOf="@id/ic_download"
+                                    android:layout_toEndOf="@id/ic_download"
                                     android:text="20MB" />
-
                             </RelativeLayout>
-
                         </RelativeLayout>
 
                         <Button
@@ -206,15 +183,10 @@
                             app:strokeWidth="2dp"
                             app:strokeColor="@android:color/holo_orange_light"
                             app:rippleColor="@android:color/holo_orange_light" />
-
-
                     </LinearLayout>
-
                 </RelativeLayout>
-
             </androidx.cardview.widget.CardView>
             </io.armcha.elasticview.ElasticView>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -227,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Connecting..."
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     android:textColor="@android:color/black"/>
             </LinearLayout>

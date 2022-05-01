@@ -14,12 +14,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.github.goldfish07.hydra.vpn.BuildConfig;
 import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.ServerActivity;
 import com.github.goldfish07.hydra.vpn.util.CountriesNames;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +48,7 @@ public class PaidServerListAdapter extends RecyclerView.Adapter<PaidServerListAd
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         String country = this.regions.get(i).getCountry();
 
-        Drawable flag = CountriesNames.getDrawableFromAssets(country,context);
+        Drawable flag = CountriesNames.getDrawableFromAssets(context,country);
         if (this.regions.get(i).getCountry() != null) {
             viewHolder.regionTitle.setText(getCountryName(country));
             viewHolder.imgNetwork.setVisibility(View.VISIBLE);
@@ -67,7 +65,7 @@ public class PaidServerListAdapter extends RecyclerView.Adapter<PaidServerListAd
                         Toast.makeText(context, "Please wait while we connecting...", Toast.LENGTH_LONG).show();
                     } else {
                         Intent intent = new Intent(view.getContext(), ServerActivity.class);
-                        intent.putExtra("country", String.valueOf(PaidServerListAdapter.this.regions.get(viewHolder.getAdapterPosition()).getCountry()));
+                        intent.putExtra("country", PaidServerListAdapter.this.regions.get(viewHolder.getAdapterPosition()).getCountry());
                         view.getContext().startActivity(intent);
                     }
                 }
@@ -92,7 +90,7 @@ public class PaidServerListAdapter extends RecyclerView.Adapter<PaidServerListAd
         return 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgFlag;
         ImageView imgNetwork;
         TextView regionTitle;
@@ -114,5 +112,4 @@ public class PaidServerListAdapter extends RecyclerView.Adapter<PaidServerListAd
     private String getCountryName(String str) {
         return new Locale("", str.toUpperCase()).getDisplayCountry();
     }
-
 }

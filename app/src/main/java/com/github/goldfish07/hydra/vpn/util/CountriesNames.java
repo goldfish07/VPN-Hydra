@@ -1,5 +1,6 @@
 package com.github.goldfish07.hydra.vpn.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
@@ -33,7 +34,8 @@ public class CountriesNames {
         return countries;
     }
 
-    public static Drawable getDrawableFromAssets(String str, Context context) {
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public static Drawable getDrawableFromAssets(Context context, String str) {
         if (str != null) {
             try {
                 AssetManager assets = context.getAssets();

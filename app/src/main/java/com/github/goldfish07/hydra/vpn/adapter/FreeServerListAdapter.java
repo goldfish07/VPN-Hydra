@@ -1,5 +1,7 @@
 package com.github.goldfish07.hydra.vpn.adapter;
 
+import static com.github.goldfish07.hydra.vpn.util.CountriesNames.getDrawableFromAssets;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +35,7 @@ import unified.vpn.sdk.VpnException;
 import unified.vpn.sdk.VpnState;
 
 public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAdapter.ViewHolder> {
-    private Context context;
+    private final Context context;
     private List<Country> regions;
 
     public FreeServerListAdapter(Context context) {
@@ -49,7 +51,7 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         String country = this.regions.get(i).getCountry();
 
-        Drawable drawableFromAssets = getDrawableFromAssets(country);
+        Drawable drawableFromAssets = getDrawableFromAssets(context,country);
         if (this.regions.get(i).getCountry() != null) {
             viewHolder.regionTitle.setText(getCountryName(country));
             viewHolder.imgNetwork.setVisibility(View.VISIBLE);
@@ -97,7 +99,7 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
         return 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgFlag;
         ImageView imgNetwork;
         TextView regionTitle;
@@ -112,9 +114,9 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setRegions(List<Country> list) {
         this.regions = new ArrayList();
-       // this.regions.add(new Country());
         this.regions.addAll(list);
         notifyDataSetChanged();
     }
@@ -123,15 +125,5 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
         return new Locale("", str.toUpperCase()).getDisplayCountry();
     }
 
-    private Drawable getDrawableFromAssets(String str) {
-        if (str != null) {
-            try {
-                AssetManager assets = this.context.getAssets();
-                return Drawable.createFromStream(assets.open(str.toLowerCase() + ".png"), null);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return this.context.getResources().getDrawable(R.drawable.unknown);
-    }
+
 }

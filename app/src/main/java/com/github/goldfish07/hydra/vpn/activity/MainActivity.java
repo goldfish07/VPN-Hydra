@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
 
     LinearProgressIndicator serverConnectingProgress;
 
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
-    private String[] mTitles = {"Free Server", "Premium Server"};
+    private final ArrayList<Fragment> mFragments = new ArrayList<>();
+    private final String[] mTitles = {"Free Server", "Premium Server"};
 
     Map<String, String> localeCountries;
 
@@ -509,6 +509,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
         }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private Drawable getDrawableFromAssets(String str) {
         if (str != null) {
             try {
@@ -545,6 +546,7 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
             return mTitles[position];
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             Fragment fragment = null;

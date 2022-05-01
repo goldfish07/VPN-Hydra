@@ -35,6 +35,7 @@ import unified.vpn.sdk.FireshieldConfig;
 import unified.vpn.sdk.HydraTransport;
 import unified.vpn.sdk.HydraVpnTransportException;
 import unified.vpn.sdk.NetworkRelatedException;
+import unified.vpn.sdk.OpenVpnTransport;
 import unified.vpn.sdk.PartnerApiException;
 import unified.vpn.sdk.SessionConfig;
 import unified.vpn.sdk.SessionInfo;
@@ -52,13 +53,9 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
     private String currentServer;
 
     public static boolean statusConnection = false;
-    Map<String, String> localeCountries;
+    private Map<String, String> localeCountries;
     public static boolean isConnected;
-
-    Snackbar snackbar;
-
-    protected static final String TAG = ServerActivity.class.getSimpleName();
-
+    private Snackbar snackbar;
     private boolean isVPNConnected;
 
     LinearProgressIndicator connectingProgress;
@@ -101,9 +98,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         serverFlag.setImageDrawable(getDrawableFromAssets(currentServer));
         String name = localeCountries.get(currentServer.toUpperCase());
         ((TextView) findViewById(R.id.serverCountry)).setText(name);
-
     }
-
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private Drawable getDrawableFromAssets(String str) {
@@ -126,40 +121,36 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
     }
 
     public void serverOnClick(View view) {
-        switch (view.getId()) {
-            case R.id.serverConnect:
-                UnifiedSdk.getVpnState(new Callback<VpnState>() {
-                    @Override
-                    public void success(@NonNull VpnState state) {
-                        if (state == VpnState.CONNECTED || state == VpnState.CONNECTING_VPN || state == VpnState.CONNECTING_PERMISSIONS || state == VpnState.CONNECTING_CREDENTIALS) {
-                            UnifiedSdk.getStatus((new Callback<SessionInfo>() {
-                                @Override
-                                public void success(@NonNull SessionInfo sessionInfo) {
-                                    if (sessionInfo.getSessionConfig().getCountry().toLowerCase().equals(currentServer)) {
-                                        prepareStopVPN();
-                                    } else {
-                                        isVPNConnected = true;
-                                        prepareStopVPN();
-                                        // lastLog.setText(R.string.connecting);
-
-                                    }
+        if (view.getId() == R.id.serverConnect) {
+            UnifiedSdk.getVpnState(new Callback<VpnState>() {
+                @Override
+                public void success(@NonNull VpnState state) {
+                    if (state == VpnState.CONNECTED || state == VpnState.CONNECTING_VPN || state == VpnState.CONNECTING_PERMISSIONS || state == VpnState.CONNECTING_CREDENTIALS) {
+                        UnifiedSdk.getStatus((new Callback<SessionInfo>() {
+                            @Override
+                            public void success(@NonNull SessionInfo sessionInfo) {
+                                if (sessionInfo.getSessionConfig().getCountry().toLowerCase().equals(currentServer)) {
+                                    prepareStopVPN();
+                                } else {
+                                    isVPNConnected = true;
+                                    prepareStopVPN();
                                 }
+                            }
 
-                                @Override
-                                public void failure(@NonNull VpnException e) {
+                            @Override
+                            public void failure(@NonNull VpnException e) {
 
-                                }
-                            }));
-                        } else if (state == VpnState.IDLE) {
-                            prepareVpn();
-                        }
+                            }
+                        }));
+                    } else if (state == VpnState.IDLE) {
+                        prepareVpn();
                     }
+                }
 
-                    @Override
-                    public void failure(@NonNull VpnException e) {
-                    }
-                });
-                break;
+                @Override
+                public void failure(@NonNull VpnException e) {
+                }
+            });
         }
     }
 
@@ -179,9 +170,8 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         if (UnifiedSdk.getInstance().getBackend().isLoggedIn()) {
             List<String> fallbackOrder = new ArrayList<>();
             fallbackOrder.add(HydraTransport.TRANSPORT_ID);
-//            fallbackOrder.add(CaketubeTransport.TRANSPORT_ID_TCP);
-//            fallbackOrder.add(CaketubeTransport.TRANSPORT_ID_UDP);
-            //  showConnectProgress();
+            fallbackOrder.add(OpenVpnTransport.TRANSPORT_ID_TCP);
+            fallbackOrder.add(OpenVpnTransport.TRANSPORT_ID_UDP);
             List<String> bypassDomains = new LinkedList<>();
             bypassDomains.add("*facebook.com");
             bypassDomains.add("*wtfismyip.com");
@@ -190,12 +180,12 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
                     .withTransportFallback(fallbackOrder)
                     .withTransport(HydraTransport.TRANSPORT_ID)
                     .withVirtualLocation(currentServer)
+                    .withFireshieldConfig(createFireshieldConfig())
                     .addDnsRule(TrafficRule.Builder.bypass().fromDomains(bypassDomains))
                     .build(), new CompletableCallback() {
                 @Override
                 public void complete() {
-                    //hideConnectProgress();
-                    //startUIUpdateTask();
+                    //we are using VpnStateListener
                 }
 
                 @Override
@@ -207,7 +197,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         else {
             // showMessage("Login please");
         }
-
     }
 
     FireshieldConfig createFireshieldConfig() {
@@ -216,7 +205,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         builder.addService(FireshieldConfig.Services.IP);
         builder.addService(FireshieldConfig.Services.SOPHOS);
         builder.addCategory(FireshieldCategory.Builder.vpn(FireshieldConfig.Categories.SAFE));//need to add safe category to allow safe traffic
-
         return builder.build();
     }
 
@@ -274,10 +262,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
             case DISCONNECTING:
                 lastLog.setText(R.string.disconnecting);
                 break;
-
-
         }
-
     }
 
     @Override
@@ -314,14 +299,11 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
                     break;
             }
         }
-
     }
-
 
     protected void showMessage(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
-
 
     public void getTraffic() {
         UnifiedSdk.getTrafficStats(new Callback<TrafficStats>() {
@@ -338,7 +320,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
             @Override
             public void failure(@NonNull VpnException e) {
-
             }
         });
     }
@@ -356,8 +337,7 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
             }
 
             @Override
-            public void error(VpnException e) {
-
+            public void error(@NonNull VpnException e) {
             }
         });
     }
