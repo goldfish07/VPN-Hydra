@@ -2,15 +2,18 @@
 ----
 ### Introduction
 
-Android application which makes your internet connection secure using Hydrasdk.
+Android application which makes your internet connection secure using VPN provided by [Hydrasdk].
 
 ----
-###ScreenShots
+### ScreenShots
 
 <img src="https://github.com/goldfish07/VPN-Hydra/blob/master/artifacts/ss_VPN-hydra.jpg?raw=true" width="200" height="400" />     <img src="https://github.com/goldfish07/VPN-Hydra/blob/master/artifacts/ss_VPN-hydra_1.jpg?raw=true" width="200" height="400" />
 
 <img src="https://github.com/goldfish07/VPN-Hydra/blob/master/artifacts/ss_VPN-hydra_2.jpg?raw=true" width="200" height="400" />     <img src="https://github.com/goldfish07/VPN-Hydra/blob/master/artifacts/ss_VPN-hydra_3.jpg?raw=true" width="200" height="400" />
 
+### Dependencies
+* FlycoTabLayout under [MIT License](https://github.com/H07000223/FlycoTabLayout/blob/master/LICENSE)
+* ElasticView under [Apache License](https://choosealicense.com/licenses/apache-2.0/)
 
 
 
