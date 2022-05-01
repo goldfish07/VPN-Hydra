@@ -201,7 +201,11 @@
                             android:padding="5dp"
                             android:text="@string/connect"
                             android:textAllCaps="false"
-                            style="@style/outline" />
+                            android:backgroundTint="@android:color/white"
+                            android:textColor="@android:color/holo_orange_light"
+                            app:strokeWidth="2dp"
+                            app:strokeColor="@android:color/holo_orange_light"
+                            app:rippleColor="@android:color/holo_orange_light" />
 
 
                     </LinearLayout>

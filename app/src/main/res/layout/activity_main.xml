@@ -62,7 +62,6 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/connectBtn"
-                style="@style/outline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -75,6 +74,10 @@
                 android:orientation="horizontal"
                 android:padding="5dp"
                 android:text="@string/connect"
+                android:backgroundTint="@android:color/white"
+                android:textColor="@android:color/holo_orange_light"
+                app:strokeWidth="2dp"
+                app:strokeColor="@android:color/holo_orange_light"
                 app:rippleColor="@android:color/holo_orange_light">
 
             </com.google.android.material.button.MaterialButton>
