@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.github.goldfish07.hydra.vpn.util.CountriesNames;
+import com.github.goldfish07.hydra.vpn.utils.CountriesNames;
 import com.github.goldfish07.hydra.vpn.utils.Converter;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.snackbar.Snackbar;
@@ -50,20 +50,21 @@ import unified.vpn.sdk.VpnState;
 import unified.vpn.sdk.VpnStateListener;
 
 public class ServerActivity extends AppCompatActivity implements VpnStateListener {
-    private String currentServer;
+
 
     public static boolean statusConnection = false;
     private Map<String, String> localeCountries;
     public static boolean isConnected;
     private Snackbar snackbar;
-    private boolean isVPNConnected;
 
-    LinearProgressIndicator connectingProgress;
-    Button serverConnectBtn;
-    TextView lastLog;
-    TextView trafficIn;
-    TextView trafficOut;
-    ImageView serverFlag;
+    private LinearProgressIndicator connectingProgress;
+    private Button serverConnectBtn;
+    private TextView lastLog;
+    private TextView trafficIn;
+    private TextView trafficOut;
+    private ImageView serverFlag;
+    private String currentServer;
+    private boolean isVPNConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +113,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
         }
         return this.getResources().getDrawable(R.drawable.unknown);
     }
-
 
     private void prepareVpn() {
         connectingProgress.setVisibility(View.VISIBLE);
@@ -190,12 +190,10 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
 
                 @Override
                 public void error(@NonNull VpnException e) {
-
                 }
             });
         }
         else {
-            // showMessage("Login please");
         }
     }
 
@@ -240,7 +238,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
                     }
                     @Override
                     public void failure(@NonNull VpnException e) {
-
                     }
                 });
 
@@ -323,7 +320,6 @@ public class ServerActivity extends AppCompatActivity implements VpnStateListene
             }
         });
     }
-
 
     protected void disconnectFromVnp() {
         UnifiedSdk.getInstance().getVpn().stop(TrackingConstants.GprReasons.M_UI, new CompletableCallback() {

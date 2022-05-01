@@ -1,4 +1,4 @@
-package com.github.goldfish07.hydra.vpn.util;
+package com.github.goldfish07.hydra.vpn.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,21 +16,18 @@ import java.util.Map;
 public class CountriesNames {
 
     public static Map<String, String> getCountries() {
-        Map<String, String> countries = new HashMap<String, String>();
-
+        Map<String, String> countries = new HashMap<>();
         String[] isoCountries = Locale.getISOCountries();
         for (String country : isoCountries) {
             Locale locale = new Locale("", country);
             String iso = locale.getISO3Country();
             String code = locale.getCountry();
             String name = locale.getDisplayCountry();
-
             if (!"".equals(iso) && !"".equals(code)
                     && !"".equals(name)) {
                 countries.put(code, name);
             }
         }
-
         return countries;
     }
 
@@ -45,5 +42,9 @@ public class CountriesNames {
             }
         }
         return context.getResources().getDrawable(R.drawable.unknown);
+    }
+
+    public static String getCountryName(String str) {
+        return new Locale("", str.toUpperCase()).getDisplayCountry();
     }
 }

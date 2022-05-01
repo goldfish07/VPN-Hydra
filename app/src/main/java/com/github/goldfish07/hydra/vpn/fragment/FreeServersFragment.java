@@ -22,21 +22,15 @@ import unified.vpn.sdk.Country;
 public class FreeServersFragment extends Fragment  {
 
     private FreeServerListAdapter regionAdapter;
-    ProgressBar regionsProgressBar;
-    RecyclerView regionsRecyclerView;
+    private ProgressBar regionsProgressBar;
+    private RecyclerView regionsRecyclerView;
 
     @Nullable
     public View onCreateView(LayoutInflater layoutInflater, @Nullable ViewGroup viewGroup, @Nullable Bundle bundle) {
         View inflate = layoutInflater.inflate(R.layout.free_servers_fragment, viewGroup, false);
          regionsProgressBar = inflate.findViewById(R.id.regions_progress);
         regionsRecyclerView = inflate.findViewById(R.id.recycler_view);
-                defineIds(inflate);
-        return inflate;
-    }
-
-
-    private void defineIds(View view) {
-        this.regionsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        regionsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         this.regionAdapter = new FreeServerListAdapter(getContext());
         this.regionsRecyclerView.setAdapter(this.regionAdapter);
         if (MainActivity.freeCountries != null) {
@@ -46,10 +40,11 @@ public class FreeServersFragment extends Fragment  {
             showProgress();
         }
         MainActivity.setFreeServerListListener(this.freeServerListListener);
+        return inflate;
     }
 
-    private final MainActivity.FreeServerListListener freeServerListListener = new MainActivity.FreeServerListListener() {
-
+    private final MainActivity.FreeServerListListener freeServerListListener =
+            new MainActivity.FreeServerListListener() {
         @Override
         public void onGotFreeServers(List<Country> list) {
             FreeServersFragment.this.hideProgress();
@@ -72,5 +67,4 @@ public class FreeServersFragment extends Fragment  {
         this.regionsProgressBar.setVisibility(View.GONE);
         this.regionsRecyclerView.setVisibility(View.VISIBLE);
     }
-
 }

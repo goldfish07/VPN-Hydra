@@ -1,4 +1,4 @@
-package com.github.goldfish07.hydra.vpn.util;
+package com.github.goldfish07.hydra.vpn.ui;
 
 import android.view.View;
 
@@ -9,15 +9,10 @@ import com.google.android.material.snackbar.Snackbar;
 
 @CoordinatorLayout.DefaultBehavior(MoveUpBehavior.class)
 public class MoveUpBehavior extends CoordinatorLayout.Behavior<View> {
-    private static final boolean SNACKBAR_BEHAVIOR_ENABLED;
-
-    static {
-        SNACKBAR_BEHAVIOR_ENABLED = true;
-    }
 
     @Override
     public boolean layoutDependsOn(@NonNull CoordinatorLayout parent, @NonNull View child, @NonNull View dependency) {
-        return SNACKBAR_BEHAVIOR_ENABLED && dependency instanceof Snackbar.SnackbarLayout;
+        return dependency instanceof Snackbar.SnackbarLayout;
     }
 
     @Override

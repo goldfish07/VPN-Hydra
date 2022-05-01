@@ -25,7 +25,7 @@ import com.github.goldfish07.hydra.vpn.MainApplication;
 import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.fragment.FreeServersFragment;
 import com.github.goldfish07.hydra.vpn.fragment.PaidServerFragment;
-import com.github.goldfish07.hydra.vpn.util.CountriesNames;
+import com.github.goldfish07.hydra.vpn.utils.CountriesNames;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.github.goldfish07.hydra.vpn.util;
+package com.github.goldfish07.hydra.vpn.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;

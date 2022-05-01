@@ -25,16 +25,14 @@ import unified.vpn.sdk.UnifiedSdkConfig;
 public class MainApplication extends Application {
 
     private static final String CHANNEL_ID = "vpn";
-
-
-    private static MainApplication myData;
+    private static MainApplication mainApplication;
     public List<Country> countries;
 
     public static MainApplication getInstance() {
-        if (myData == null) {
-            myData = new MainApplication();
+        if (mainApplication == null) {
+            mainApplication = new MainApplication();
         }
-        return myData;
+        return mainApplication;
     }
 
     @Override

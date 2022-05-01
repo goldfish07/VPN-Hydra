@@ -16,5 +16,4 @@
     <string name="connected_to">Connected to</string>
     <string name="error_internet_connection">Check internet connection</string>
     <string name="error_vpn_service">Error in VPN Service</string>
-
 </resources>

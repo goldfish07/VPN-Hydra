@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.github.goldfish07.hydra.vpn.util.BehaviorScrollView
+        <com.github.goldfish07.hydra.vpn.ui.BehaviorScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true"
@@ -205,6 +205,6 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-        </com.github.goldfish07.hydra.vpn.util.BehaviorScrollView>
+        </com.github.goldfish07.hydra.vpn.ui.BehaviorScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </RelativeLayout>

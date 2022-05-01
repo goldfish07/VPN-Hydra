@@ -1,11 +1,11 @@
 package com.github.goldfish07.hydra.vpn.adapter;
 
-import static com.github.goldfish07.hydra.vpn.util.CountriesNames.getDrawableFromAssets;
+import static com.github.goldfish07.hydra.vpn.utils.CountriesNames.getCountryName;
+import static com.github.goldfish07.hydra.vpn.utils.CountriesNames.getDrawableFromAssets;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +23,8 @@ import com.github.goldfish07.hydra.vpn.BuildConfig;
 import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.ServerActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import unified.vpn.sdk.Callback;
 import unified.vpn.sdk.Country;
@@ -76,21 +74,15 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
 
                     @Override
                     public void failure(@NonNull VpnException e) {
-
                     }
-
-
                 });
-
             }
         });
         if (viewHolder.getAdapterPosition() == 0) {
             viewHolder.itemView.setVisibility(View.GONE);
             viewHolder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
-
     }
-
 
     public int getItemCount() {
         if (this.regions != null) {
@@ -100,11 +92,9 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgFlag;
-        ImageView imgNetwork;
-        TextView regionTitle;
-        ImageView connecting;
-        ImageView connected;
+        private final ImageView imgFlag;
+        private final ImageView imgNetwork;
+        private final TextView regionTitle;
 
         public ViewHolder(View view) {
             super(view);
@@ -120,10 +110,4 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
         this.regions.addAll(list);
         notifyDataSetChanged();
     }
-
-    private String getCountryName(String str) {
-        return new Locale("", str.toUpperCase()).getDisplayCountry();
-    }
-
-
 }

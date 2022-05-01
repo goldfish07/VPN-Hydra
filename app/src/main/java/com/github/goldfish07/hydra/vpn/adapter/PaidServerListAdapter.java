@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.goldfish07.hydra.vpn.BuildConfig;
 import com.github.goldfish07.hydra.vpn.R;
 import com.github.goldfish07.hydra.vpn.ServerActivity;
-import com.github.goldfish07.hydra.vpn.util.CountriesNames;
+import com.github.goldfish07.hydra.vpn.utils.CountriesNames;
 
 import java.util.ArrayList;
 import java.util.List;
