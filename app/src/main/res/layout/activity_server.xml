@@ -11,7 +11,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/world_map" />
+        android:src="@drawable/world_map"
+        android:contentDescription="World MAP" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout"
@@ -83,7 +84,8 @@
                             android:layout_height="32dp"
                             android:layout_gravity="center"
                             android:layout_marginEnd="4dp"
-                            android:src="@drawable/ic_connect_excellent" />
+                            android:src="@drawable/ic_connect_excellent"
+                            android:contentDescription="Server Signal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -97,7 +99,8 @@
                             android:layout_width="150dp"
                             android:layout_height="50dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/unknown" />
+                            android:src="@drawable/unknown"
+                            android:contentDescription="Server Country Flag" />
 
                         <TextView
                             android:id="@+id/serverCountry"
@@ -135,7 +138,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:src="@drawable/ic_upload"
-                                    android:layout_marginStart="8dp" />
+                                    android:layout_marginStart="8dp"
+                                    android:contentDescription="upload" />
 
                                 <TextView
                                     android:id="@+id/serverTrafficOut"
@@ -156,7 +160,8 @@
                                     android:id="@+id/ic_download"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_download" />
+                                    android:src="@drawable/ic_download"
+                                    android:contentDescription="download" />
 
                                 <TextView
                                     android:id="@+id/serverTrafficIn"
