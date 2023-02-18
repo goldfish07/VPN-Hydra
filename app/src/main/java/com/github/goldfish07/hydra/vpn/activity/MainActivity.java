@@ -325,28 +325,21 @@ public class MainActivity extends AppCompatActivity implements TrafficListener, 
     }
 
 
-    View.OnClickListener clickListener = new View.OnClickListener() {
+    View.OnClickListener clickListener = view -> UnifiedSdk.getVpnState(new Callback<VpnState>() {
         @Override
-        public void onClick(View view) {
-            UnifiedSdk.getVpnState(new Callback<VpnState>() {
-                @Override
-                public void success(@NonNull VpnState vpnState) {
-                    if (vpnState == VpnState.CONNECTED) {
-                      disconnectFromVnp();
-                    } else if (vpnState == VpnState.IDLE) {
-                        connectToVpn();
-                    }
-                }
+        public void success(@NonNull VpnState vpnState) {
+            if (vpnState == VpnState.CONNECTED) {
+              disconnectFromVnp();
+            } else if (vpnState == VpnState.IDLE) {
+                connectToVpn();
+            }
+        }
 
-                @Override
-                public void failure(@NonNull VpnException e) {
-
-                }
-            });
-
+        @Override
+        public void failure(@NonNull VpnException e) {
 
         }
-    };
+    });
 
 
     protected void disconnectFromVnp() {

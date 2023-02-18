@@ -55,28 +55,26 @@ public class FreeServerListAdapter extends RecyclerView.Adapter<FreeServerListAd
             viewHolder.imgNetwork.setVisibility(View.VISIBLE);
         }
         viewHolder.imgFlag.setImageDrawable(drawableFromAssets);
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if (BuildConfig.DEBUG) {
-                    Toast.makeText(view.getContext(), String.valueOf(FreeServerListAdapter.this.regions.get(viewHolder.getAdapterPosition())), Toast.LENGTH_LONG).show();
-                }
-                UnifiedSdk.getVpnState(new Callback<VpnState>() {
-                    @Override
-                    public void success(@NonNull VpnState vpnState) {
-                        if (vpnState == VpnState.CONNECTING_VPN||vpnState==VpnState.CONNECTING_CREDENTIALS||vpnState== VpnState.CONNECTING_PERMISSIONS) {
-                            Toast.makeText(context, "Please wait while we connecting...", Toast.LENGTH_LONG).show();
-                        } else {
-                            Intent intent = new Intent(view.getContext(), ServerActivity.class);
-                            intent.putExtra("country", String.valueOf(FreeServerListAdapter.this.regions.get(viewHolder.getAdapterPosition()).getCountry()));
-                            view.getContext().startActivity(intent);
-                        }
-                    }
-
-                    @Override
-                    public void failure(@NonNull VpnException e) {
-                    }
-                });
+        viewHolder.itemView.setOnClickListener(view -> {
+            if (BuildConfig.DEBUG) {
+                Toast.makeText(view.getContext(), String.valueOf(FreeServerListAdapter.this.regions.get(viewHolder.getAdapterPosition())), Toast.LENGTH_LONG).show();
             }
+            UnifiedSdk.getVpnState(new Callback<VpnState>() {
+                @Override
+                public void success(@NonNull VpnState vpnState) {
+                    if (vpnState == VpnState.CONNECTING_VPN||vpnState==VpnState.CONNECTING_CREDENTIALS||vpnState== VpnState.CONNECTING_PERMISSIONS) {
+                        Toast.makeText(context, "Please wait while we connecting...", Toast.LENGTH_LONG).show();
+                    } else {
+                        Intent intent = new Intent(view.getContext(), ServerActivity.class);
+                        intent.putExtra("country", String.valueOf(FreeServerListAdapter.this.regions.get(viewHolder.getAdapterPosition()).getCountry()));
+                        view.getContext().startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void failure(@NonNull VpnException e) {
+                }
+            });
         });
         if (viewHolder.getAdapterPosition() == 0) {
             viewHolder.itemView.setVisibility(View.GONE);
